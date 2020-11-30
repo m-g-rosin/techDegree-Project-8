@@ -53,7 +53,7 @@ fetch(urlAPI)
                 //     }
                 // })
     }
-
+   
         function displayModal(index) {
             
             //use object destructuring to make our template literal cleaner
@@ -79,20 +79,63 @@ fetch(urlAPI)
 
             modalContainer.innerHTML = modalHTML;
             
+          
             document.addEventListener("keydown", e => {
                 
                 
-                if(e.keyCode == 39){
-                    console.log(index)
-                    displayModal(+index+1);
-                    console.log(+index+1)
+                 if(e.keyCode == 39){
+                     index = +index+1;
+                    let { name, dob, phone, email, location: { city, street, state, postcode} , picture} = employees[index];
+            
+                    let date = new Date(dob.date);
+        
+                    const modalHTML = ` 
+                    <img class="avatar" src="${picture.large}" />
+                    <div class="text-container">
+                        <h2 class="name">${name.first} ${name.last}</h2>
+                        <p class="email">${email}</p>
+                        <p class="address">${city}</p>
+                        <hr />
+                        <p>${phone}</p>
+                        <p class="address">${street.number}, ${street.name}, ${state} ${postcode}</p>
+                        <p>Birthday:
+                    ${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</p>
+                    </div>
+                    `;
+        
+                    overlay.classList.remove("hidden");
+        
+                    modalContainer.innerHTML = modalHTML;
+                    
+
                     
                     
                 } else if(e.keyCode == 37) {
-                    console.log(index)
-                    displayModal(+index-1);
-                    console.log(index-1)
-                }
+                    
+                    index = +index-1;
+                    let { name, dob, phone, email, location: { city, street, state, postcode} , picture} = employees[index];
+            
+                    let date = new Date(dob.date);
+        
+                    const modalHTML = ` 
+                    <img class="avatar" src="${picture.large}" />
+                    <div class="text-container">
+                        <h2 class="name">${name.first} ${name.last}</h2>
+                        <p class="email">${email}</p>
+                        <p class="address">${city}</p>
+                        <hr />
+                        <p>${phone}</p>
+                        <p class="address">${street.number}, ${street.name}, ${state} ${postcode}</p>
+                        <p>Birthday:
+                    ${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</p>
+                    </div>
+                    `;
+        
+                    overlay.classList.remove("hidden");
+        
+                    modalContainer.innerHTML = modalHTML;
+                    
+                } 
                  
             })
     }
